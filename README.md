@@ -1,1 +1,1 @@
-Corso Codemu.com Vibe coding with Claude
+Corso Codemy.com Vibe coding with Claude
