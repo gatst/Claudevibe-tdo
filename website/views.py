@@ -15,10 +15,10 @@ def login_view(request):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.success(request, f'Welcome {username}!')
+				messages.success(request, f'Benvenuto {username}!')
 				return redirect('home')
 			else:
-				messages.error(request, 'Invalid username or password.')
+				messages.error(request, 'Nome utente o password non validi.')
 	else:
 		form = AuthenticationForm()
 	return render(request, 'login.html', {'form': form})
@@ -29,7 +29,7 @@ def register_view(request):
 		if form.is_valid():
 			user = form.save()
 			username = form.cleaned_data.get('username')
-			messages.success(request, f'Account created for {username}!')
+			messages.success(request, f'Account creato per {username}!')
 			login(request, user)
 			return redirect('home')
 	else:
@@ -38,5 +38,5 @@ def register_view(request):
 
 def logout_view(request):
 	logout(request)
-	messages.success(request, 'You have been logged out.')
+	messages.success(request, 'Sei stato disconnesso.')
 	return redirect('home')

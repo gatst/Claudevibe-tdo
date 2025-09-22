@@ -1,16 +1,90 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
-    <h1>Register</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    <p><a href="{% url 'login' %}">Already have an account? Login here</a></p>
-    <p><a href="{% url 'home' %}">Back to Home</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Registrazione - Daily Planner{% endblock %}
+
+{% block extra_css %}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        max-width: 350px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>📝 Registrati</h1>
+        <p class="subtitle">Crea il tuo account Daily Planner</p>
+    </div>
+
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="helptext">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn">🚀 Registrati</button>
+        </form>
+    </div>
+
+    <div class="links">
+        <a href="{% url 'login' %}">🔑 Hai già un account? Accedi</a>
+        <br>
+        <a href="{% url 'home' %}">🏠 Torna alla Home</a>
+    </div>
+</div>
+{% endblock %}
